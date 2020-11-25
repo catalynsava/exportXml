@@ -98,6 +98,10 @@ namespace exportXml
                     Export.comun("CAP4b1");
                     Export.cap4b1();
                 }
+                if(args[2]=="CAP4b2"){
+                    Export.comun("CAP4b2");
+                    Export.cap4b2();
+                }
                 if(args[2]=="CAP5a"){
                     Export.comun("CAP5a");
                     Export.cap5a();
