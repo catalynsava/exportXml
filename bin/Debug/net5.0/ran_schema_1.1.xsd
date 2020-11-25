@@ -1,0 +1,1605 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="DOCUMENT_RAN" type="ranDoc"/>
+
+  <xs:element name="GEOMETRIE_CULTURA" type="GEOMETRIE_CULTURA"/>
+
+  <xs:element name="GEOMETRIE_PARCELA_TEREN" type="GEOMETRIE_PARCELA_TEREN"/>
+
+  <xs:element name="NString" type="NString"/>
+
+  <xs:element name="PF" type="PF"/>
+
+  <xs:element name="RC" type="RC"/>
+
+  <xs:element name="StringMaxSize9" type="StringMaxSize9"/>
+
+  <xs:element name="pozitie_gospodarie" type="PozitieGospodarile"/>
+
+  <xs:complexType name="capitol13">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="cerere_sau_sesizare" type="sectiuneCapitol13" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol" abstract="true">
+    <xs:sequence/>
+    <xs:attribute name="codCapitol" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="denumire" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol13">
+    <xs:sequence>
+      <xs:element name="defunct" type="PF"/>
+      <xs:element name="dataDeces">
+        <xs:simpleType>
+          <xs:restriction base="xs:dateTime"/>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="dataInregistrare">
+        <xs:simpleType>
+          <xs:restriction base="xs:dateTime"/>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="denumireSPB_BIN" type="NString"/>
+      <xs:element name="nr" type="NString"/>
+      <xs:element name="succesibil" type="Succesibil" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PF">
+    <xs:sequence>
+      <xs:element name="nume" type="NString"/>
+      <xs:element name="prenume" type="NString"/>
+      <xs:element name="initialaTata" type="NString"/>
+      <xs:choice>
+        <xs:element name="cnp" type="CNP"/>
+        <xs:element name="nif" type="NIF"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="NString">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="CNP">
+    <xs:sequence/>
+    <xs:attribute name="value" use="required">
+      <xs:annotation>
+        <xs:documentation>Prima cifra a C.N.P.-ului este: (sex barbatesc / sex femeiesc)
+1 / 2 - nascu&#539;i intre 1 ianuarie 1900 &#537;i 31 decembrie 1999
+3 / 4 - nascu&#539;i intre 1 ianuarie 1800 &#537;i 31 decembrie 1899
+5 / 6 - nascu&#539;i intre 1 ianuarie 2000 &#537;i 31 decembrie 2099
+7 / 8 - pentru persoanele straine rezidente in Romania.
+In plus 9 - pentru persoanele straine.</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="(1|2|3|4|5|6|7|8|9)[0-9]{12}"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="NIF">
+    <xs:sequence/>
+    <xs:attribute name="value" use="required">
+      <xs:annotation>
+        <xs:documentation>Numar de identificare fiscala atribuit de organul fiscal</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="(1|2|3|4|5|6|7|8|9)[0-9]{12}"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="Succesibil">
+    <xs:sequence>
+      <xs:element name="persoana" type="PF"/>
+      <xs:choice>
+        <xs:element name="adresaRo" type="Adresa"/>
+        <xs:element name="adresaExtern" type="AdresaExterna"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Adresa">
+    <xs:sequence>
+      <xs:element name="apartament" type="xs:string" minOccurs="0"/>
+      <xs:element name="bloc" type="xs:string" minOccurs="0"/>
+      <xs:element name="etaj" type="xs:string" minOccurs="0"/>
+      <xs:element name="numar" type="xs:string" minOccurs="0"/>
+      <xs:element name="scara" type="xs:string" minOccurs="0"/>
+      <xs:element name="sirutaJudet">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="sirutaLocalitate">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="sirutaUAT">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="strada" type="xs:string" minOccurs="0"/>
+      <xs:element name="cua" type="CUA" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Cod Unic Adresa din sistemul RENNS</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="referintaGeoXml" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>informatii geospatiale ale adresei in format geo xml</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CUA">
+    <xs:sequence/>
+    <xs:attribute name="value" use="required">
+      <xs:annotation>
+        <xs:documentation>Cod Unic de Adresa din sistemul RENNS</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="AdresaExterna">
+    <xs:sequence>
+      <xs:element name="adresaText" type="NString"/>
+      <xs:element name="codTara">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol2B">
+    <xs:sequence>
+      <xs:element name="act_detinere" type="Act" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="act_instrainare" type="Act" minOccurs="0"/>
+      <xs:element name="proprietar" type="PF" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>membru din col 1 / cap1</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="codCatFolosinta">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="codModalitateDetinere" type="xs:string" minOccurs="0"/>
+      <xs:element name="localizare" type="localizare" maxOccurs="unbounded"/>
+      <xs:element name="mentiuni" type="xs:string" minOccurs="0"/>
+      <xs:element name="nrBlocFizic" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>de la APIA conform LPIS</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:choice>
+        <xs:element name="intravilan" type="Intravilan"/>
+        <xs:element name="extravilan" type="Extravilan"/>
+      </xs:choice>
+      <xs:element name="geometrieParcelaTeren" type="GEOMETRIE_PARCELA_TEREN" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="codRand" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:int">
+          <xs:minExclusive value="0"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="denumire" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="Act">
+    <xs:sequence>
+      <xs:element name="codTip" type="NString"/>
+      <xs:element name="dataAct">
+        <xs:simpleType>
+          <xs:restriction base="xs:dateTime"/>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="emitent" type="NString"/>
+      <xs:element name="nrAct" type="NString"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="localizare">
+    <xs:sequence/>
+    <xs:attribute name="codTip" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="denumire" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="valoare" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="Intravilan">
+    <xs:sequence>
+      <xs:element name="intravilanARI" type="FRACTIE_DOUA_ZECIMALE"/>
+      <xs:element name="intravilanHA" type="INTREG_POZITIV"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FRACTIE_DOUA_ZECIMALE">
+    <xs:sequence/>
+    <xs:attribute name="value" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:decimal">
+          <xs:fractionDigits value="2"/>
+          <xs:maxInclusive value="99.99"/>
+          <xs:minInclusive value="0.00"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="INTREG_POZITIV">
+    <xs:sequence/>
+    <xs:attribute name="value" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:int">
+          <xs:minInclusive value="0"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="Extravilan">
+    <xs:sequence>
+      <xs:element name="extravilanARI" type="FRACTIE_DOUA_ZECIMALE"/>
+      <xs:element name="extravilanHA" type="INTREG_POZITIV"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="GEOMETRIE_PARCELA_TEREN">
+    <xs:sequence>
+      <xs:element name="referintaGeoXml" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>informatii geospatiale ale parcelei de teren in format geo xml</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isFolosinta" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>obligatoriu daca avem geometrie</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol4A1">
+    <xs:complexContent>
+      <xs:extension base="unitateNomenclator">
+        <xs:sequence>
+          <xs:element name="nrARI" type="FRACTIE_DOUA_ZECIMALE"/>
+          <xs:element name="nrHA" type="INTREG_POZITIV"/>
+          <xs:element name="geometrieCultura" type="GEOMETRIE_CULTURA" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="unitateNomenclator" abstract="true">
+    <xs:sequence/>
+    <xs:attribute name="codNomenclator" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="codRand" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:int">
+          <xs:minExclusive value="0"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="denumire" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="GEOMETRIE_CULTURA">
+    <xs:sequence>
+      <xs:element name="referintaGeoXml" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>informatii poligon in format geo xml</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isPrincipala" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>obligatoriu daca avem geometrie</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="capitol12A">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="cultura_in_camp" type="sectiuneCapitol12A" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol12A">
+    <xs:complexContent>
+      <xs:extension base="unitateNomenclator">
+        <xs:sequence>
+          <xs:element name="nrHA" type="INTREG_POZITIV"/>
+          <xs:element name="prodMedieKgPerHa" type="INTREG_POZITIV" minOccurs="0"/>
+          <xs:element name="prodTotalaTone" type="INTREG_POZITIV" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol4C">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="cultura_in_gradini" type="sectiuneCapitol4C" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol4C">
+    <xs:complexContent>
+      <xs:extension base="unitateNomenclator">
+        <xs:sequence>
+          <xs:element name="nrMP" type="INTREG_POZITIV"/>
+          <xs:element name="geometrieCultura" type="GEOMETRIE_CULTURA" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol12D">
+    <xs:complexContent>
+      <xs:extension base="unitateNomenclator">
+        <xs:sequence>
+          <xs:element name="arieLiveziHa" type="INTREG_POZITIV" minOccurs="0"/>
+          <xs:element name="nrPomiRazleti" type="INTREG_POZITIV" minOccurs="0"/>
+          <xs:element name="productieMedieLivezi" type="INTREG_POZITIV" minOccurs="0"/>
+          <xs:element name="productieMediePomiRazleti" type="INTREG_POZITIV" minOccurs="0"/>
+          <xs:element name="productieTotalaLivezi" type="INTREG_POZITIV" minOccurs="0"/>
+          <xs:element name="productieTotalaPomiRazleti" type="INTREG_POZITIV" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol1">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="membru_gospodarie" type="sectiuneCapitol1" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol1">
+    <xs:sequence>
+      <xs:element name="dateMembruGospodarie" type="PF"/>
+      <xs:element name="codLegaturaRudenie" type="NString"/>
+      <xs:element name="codRand">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="denumireLegaturaRudenie" type="NString"/>
+      <xs:element name="mentiuni" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="capitol15A">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="contract_arendare" type="sectiuneCapitol15A" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol15A">
+    <xs:complexContent>
+      <xs:extension base="contract">
+        <xs:sequence>
+          <xs:element name="arendaInProduse" type="xs:string" minOccurs="0"/>
+          <xs:choice>
+            <xs:element name="arendasPF" type="PF"/>
+            <xs:element name="arendasRC" type="RC"/>
+          </xs:choice>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="contract" abstract="true">
+    <xs:sequence>
+      <xs:element name="codCategFolosinta" type="NString"/>
+      <xs:element name="dataContract">
+        <xs:simpleType>
+          <xs:restriction base="xs:dateTime"/>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="dataStart">
+        <xs:simpleType>
+          <xs:restriction base="xs:dateTime"/>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="dataStop">
+        <xs:simpleType>
+          <xs:restriction base="xs:dateTime"/>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="nrContract" type="NString"/>
+      <xs:element name="nrCrt">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="redeventaLei">
+        <xs:simpleType>
+          <xs:restriction base="xs:float"/>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="suprafataMP" type="INTREG_POZITIV"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RC">
+    <xs:sequence>
+      <xs:element name="cui" type="CUI"/>
+      <xs:element name="cif" type="CIF" minOccurs="0"/>
+      <xs:element name="denumire" type="NString"/>
+      <xs:element name="formaOrganizareRC" type="NString"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CUI">
+    <xs:sequence/>
+    <xs:attribute name="value" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="CIF">
+    <xs:sequence/>
+    <xs:attribute name="value" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="capitol4B2">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="cultura_in_spatiu_protejat" type="sectiuneCapitol4B2" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol4B2">
+    <xs:complexContent>
+      <xs:extension base="unitateNomenclator">
+        <xs:sequence>
+          <xs:element name="nrMP" type="INTREG_POZITIV"/>
+          <xs:element name="geometrieCultura" type="GEOMETRIE_CULTURA" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol5C">
+    <xs:complexContent>
+      <xs:extension base="unitateNomenclator">
+        <xs:sequence>
+          <xs:element name="nrARI" type="FRACTIE_DOUA_ZECIMALE"/>
+          <xs:element name="nrHA" type="INTREG_POZITIV"/>
+          <xs:element name="referintaGeoXml" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>informatii poligon in format geo xml</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol4B1">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="cultura_in_sere" type="sectiuneCapitol4B1" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol4B1">
+    <xs:complexContent>
+      <xs:extension base="unitateNomenclator">
+        <xs:sequence>
+          <xs:element name="nrMP" type="INTREG_POZITIV"/>
+          <xs:element name="geometrieCultura" type="GEOMETRIE_CULTURA" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="reactivareGospodarie">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol12A1">
+    <xs:complexContent>
+      <xs:extension base="unitateNomenclator">
+        <xs:sequence>
+          <xs:element name="nrHA" type="INTREG_POZITIV"/>
+          <xs:element name="prodMedieKgPerHa" type="INTREG_POZITIV" minOccurs="0"/>
+          <xs:element name="prodTotalaTone" type="INTREG_POZITIV"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UUID">
+    <xs:sequence/>
+    <xs:attribute name="value" use="required">
+      <xs:annotation>
+        <xs:documentation>The representation of a GUID, generally the id of an element.</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="capitol14">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="oferta_vanzare" type="sectiuneCapitol14" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol14">
+    <xs:sequence>
+      <xs:choice minOccurs="0">
+        <xs:element name="cumparatorPF" type="PF"/>
+        <xs:element name="cumparatorRC" type="RC"/>
+      </xs:choice>
+      <xs:element name="dataAdeverintaVanzare" minOccurs="0">
+        <xs:simpleType>
+          <xs:restriction base="xs:dateTime"/>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="dataAvizMADR_DADR">
+        <xs:simpleType>
+          <xs:restriction base="xs:dateTime"/>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="dataOfertaVanzare">
+        <xs:simpleType>
+          <xs:restriction base="xs:dateTime"/>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="nrAdeverintaVanzare" type="NString" minOccurs="0"/>
+      <xs:element name="nrAvizMADR_DADR" type="NString"/>
+      <xs:element name="nrCarteFunciara" type="NString"/>
+      <xs:element name="nrOfertaVanzare" type="NString"/>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="preemptorPF" type="PF"/>
+        <xs:element name="preemptorRC" type="RC"/>
+      </xs:choice>
+      <xs:element name="pretRON" type="INTREG_POZITIV"/>
+      <xs:element name="suprafataHA" type="INTREG_POZITIV"/>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="vanzatorPF" type="PF"/>
+        <xs:element name="vanzatorRC" type="RC"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="dateIdentificareGospodarie" abstract="true">
+    <xs:sequence>
+      <xs:element name="adresaGospodarie" type="Adresa"/>
+      <xs:element name="codExploatatie" type="xs:string" minOccurs="0"/>
+      <xs:choice>
+        <xs:element name="domiciliuFiscalRo" type="Adresa">
+          <xs:annotation>
+            <xs:documentation>elementul "domiciliuFiscal" este de fapt "adresa PJ (capitol 0-1,2) sau adresa persoanei gospodar (capitol 0-3,4)</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="domiciliuFiscalExtern" type="AdresaExterna">
+          <xs:annotation>
+            <xs:documentation>elementul "domiciliuFiscal" este de fapt "adresa PJ (capitol 0-1,2) sau adresa persoanei gospodar (capitol 0-3,4)</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:choice>
+      <xs:element name="nrUnicIdentificare" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>nr unic de identificare ID:RO; codul alocat de APIA</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string"/>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="pozitieGospodarie" type="PozitieGospodarile"/>
+      <xs:element name="tipDetinator">
+        <xs:annotation>
+          <xs:documentation>valoare din nomenclator: 1 sau 2 pentru persoane fizice</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="tipExploatatie">
+        <xs:annotation>
+          <xs:documentation>valoare din nomenclator (1 sau 2 ptr PF; 3..11 ptr PJ)</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PozitieGospodarile">
+    <xs:sequence>
+      <xs:element name="pozitiaAnterioara">
+        <xs:annotation>
+          <xs:documentation>numarul de ordine din volumul precedent</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="pozitieCurenta">
+        <xs:annotation>
+          <xs:documentation>numarul de ordine din volumul actual</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="volumul" type="NString"/>
+      <xs:element name="rolNominalUnic" type="xs:int" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>numarul din registrul de rol nominal unic</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CertificatComercializare">
+    <xs:sequence>
+      <xs:element name="dataEliberare">
+        <xs:simpleType>
+          <xs:restriction base="xs:dateTime"/>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="serie" type="NString"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol5D">
+    <xs:complexContent>
+      <xs:extension base="unitateNomenclator">
+        <xs:sequence>
+          <xs:element name="nrARI" type="FRACTIE_DOUA_ZECIMALE"/>
+          <xs:element name="nrHA" type="INTREG_POZITIV"/>
+          <xs:element name="referintaGeoXml" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>informatii poligon in format geo xml</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol12B1">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="cultura_in_sere" type="sectiuneCapitol12B1" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol12B1">
+    <xs:complexContent>
+      <xs:extension base="unitateNomenclator">
+        <xs:sequence>
+          <xs:element name="nrHA" type="INTREG_POZITIV"/>
+          <xs:element name="prodMedieKgPerHa" type="INTREG_POZITIV" minOccurs="0"/>
+          <xs:element name="prodTotalaTone" type="INTREG_POZITIV"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol12E">
+    <xs:complexContent>
+      <xs:extension base="unitateNomenclator">
+        <xs:sequence>
+          <xs:element name="arieLiveziHa" type="INTREG_POZITIV"/>
+          <xs:element name="productieMedieLivezi" type="INTREG_POZITIV" minOccurs="0"/>
+          <xs:element name="productieTotalaLivezi" type="INTREG_POZITIV"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol4A">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="cultura_in_camp" type="sectiuneCapitol4A" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol4A">
+    <xs:complexContent>
+      <xs:extension base="unitateNomenclator">
+        <xs:sequence>
+          <xs:element name="nrARI" type="FRACTIE_DOUA_ZECIMALE"/>
+          <xs:element name="nrHA" type="INTREG_POZITIV"/>
+          <xs:element name="geometrieCultura" type="GEOMETRIE_CULTURA" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol11">
+    <xs:sequence>
+      <xs:element name="adresa" type="Adresa"/>
+      <xs:element name="anulTerminarii">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="codDestinatieCladire" type="NString"/>
+      <xs:element name="codTipCladire" type="NString"/>
+      <xs:element name="identificator" type="NString">
+        <xs:annotation>
+          <xs:documentation>identificator alocat de uat</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="identificatorCadastralElectronic" type="xs:string" minOccurs="0"/>
+      <xs:element name="referintaGeoXml" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>informatii geospatiale ale cladirii in format geo xml</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="suprafataConstruitaDesfasurataMP" type="INTREG_POZITIV"/>
+      <xs:element name="suprafataConstruitaLaSolMP" type="INTREG_POZITIV" minOccurs="0"/>
+      <xs:element name="zona" type="NString"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol2A">
+    <xs:complexContent>
+      <xs:extension base="unitateNomenclator">
+        <xs:sequence>
+          <xs:element name="altelocARI" type="FRACTIE_DOUA_ZECIMALE" minOccurs="0"/>
+          <xs:element name="altelocHA" type="INTREG_POZITIV" minOccurs="0"/>
+          <xs:element name="localARI" type="FRACTIE_DOUA_ZECIMALE" minOccurs="0"/>
+          <xs:element name="localHA" type="INTREG_POZITIV" minOccurs="0"/>
+          <xs:element name="totalARI" type="FRACTIE_DOUA_ZECIMALE"/>
+          <xs:element name="totalHA" type="INTREG_POZITIV"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol13Centralizator">
+    <xs:complexContent>
+      <xs:extension base="unitateNomenclator">
+        <xs:sequence>
+          <xs:element name="valoareProductie" type="NR_POZITIV_DOUA_ZECIMALE"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="NR_POZITIV_DOUA_ZECIMALE">
+    <xs:sequence/>
+    <xs:attribute name="value" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:decimal">
+          <xs:fractionDigits value="2"/>
+          <xs:maxInclusive value="999999999999.99"/>
+          <xs:minInclusive value="0.00"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="body">
+    <xs:choice>
+      <xs:element name="gospodarie" type="gospodarie"/>
+      <xs:element name="anRaportare" type="anRaportareCentralizator"/>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="gospodarie">
+    <xs:choice>
+      <xs:element name="anRaportare" type="anRaportare"/>
+      <xs:element name="capitol_0_12" type="capitol012"/>
+      <xs:element name="capitol_0_34" type="capitol034"/>
+      <xs:element name="capitol_1" type="capitol1"/>
+      <xs:element name="capitol_12" type="capitol12"/>
+      <xs:element name="capitol_13" type="capitol13"/>
+      <xs:element name="capitol_14" type="capitol14"/>
+      <xs:element name="capitol_15a" type="capitol15A"/>
+      <xs:element name="capitol_15b" type="capitol15B"/>
+      <xs:element name="capitol_16" type="capitol16"/>
+      <xs:element name="anulareCapitol" type="anulareCapitol"/>
+      <xs:element name="dezactivareGospodarie" type="dezactivareGospodarie"/>
+      <xs:element name="reactivareGospodarie" type="reactivareGospodarie"/>
+    </xs:choice>
+    <xs:attribute name="identificator" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="anRaportare">
+    <xs:choice>
+      <xs:element name="capitol_2a" type="capitol2A"/>
+      <xs:element name="capitol_2b" type="capitol2B"/>
+      <xs:element name="capitol_3" type="capitol3"/>
+      <xs:element name="capitol_4a" type="capitol4A"/>
+      <xs:element name="capitol_4a1" type="capitol4A1"/>
+      <xs:element name="capitol_4b1" type="capitol4B1"/>
+      <xs:element name="capitol_4b2" type="capitol4B2"/>
+      <xs:element name="capitol_4c" type="capitol4C"/>
+      <xs:element name="capitol_5a" type="capitol5A"/>
+      <xs:element name="capitol_5b" type="capitol5B"/>
+      <xs:element name="capitol_5c" type="capitol5C"/>
+      <xs:element name="capitol_5d" type="capitol5D"/>
+      <xs:element name="capitol_6" type="capitol6"/>
+      <xs:element name="capitol_7" type="capitol7"/>
+      <xs:element name="capitol_8" type="capitol8"/>
+      <xs:element name="capitol_9" type="capitol9"/>
+      <xs:element name="capitol_10a" type="capitol10A"/>
+      <xs:element name="capitol_10b" type="capitol10B"/>
+      <xs:element name="capitol_11" type="capitol11"/>
+      <xs:element name="anulareCapitol" type="anulareCapitol"/>
+    </xs:choice>
+    <xs:attribute name="an" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:int">
+          <xs:minInclusive value="2015"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="capitol2A">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="categorie_teren" type="sectiuneCapitol2A" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol2B">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="identificare_teren" type="sectiuneCapitol2B" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol3">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="mod_utilizare_suprafete_agricole" type="sectiuneCapitol3" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol3">
+    <xs:complexContent>
+      <xs:extension base="unitateNomenclator">
+        <xs:sequence>
+          <xs:element name="nrARI" type="FRACTIE_DOUA_ZECIMALE"/>
+          <xs:element name="nrHA" type="INTREG_POZITIV"/>
+          <xs:element name="referintaGeoXml" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>informatii poligon in format geo xml</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol4A1">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="cultura_speciala_in_camp" type="sectiuneCapitol4A1" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol5A">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="pom_razlet" type="sectiuneCapitol5A" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol5A">
+    <xs:complexContent>
+      <xs:extension base="unitateNomenclator">
+        <xs:sequence>
+          <xs:element name="nrPomiPeRod" type="INTREG_POZITIV"/>
+          <xs:element name="nrPomiTineri" type="INTREG_POZITIV"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol5B">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="pom_plantatii_pomicole" type="sectiuneCapitol5B" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol5B">
+    <xs:complexContent>
+      <xs:extension base="unitateNomenclator">
+        <xs:sequence>
+          <xs:element name="nrARI" type="FRACTIE_DOUA_ZECIMALE"/>
+          <xs:element name="nrHA" type="INTREG_POZITIV"/>
+          <xs:element name="nrPomiPeRod" type="INTREG_POZITIV"/>
+          <xs:element name="referintaGeoXml" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>informatii poligon in format geo xml</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol5C">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="pom_alte_plantatii_pomicole" type="sectiuneCapitol5C" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol5D">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="vii_hamei" type="sectiuneCapitol5D" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol6">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="cultura_irigata" type="sectiuneCapitol6" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol6">
+    <xs:complexContent>
+      <xs:extension base="unitateNomenclator">
+        <xs:sequence>
+          <xs:element name="nrARI" type="FRACTIE_DOUA_ZECIMALE"/>
+          <xs:element name="nrHA" type="INTREG_POZITIV"/>
+          <xs:element name="referintaGeoXml" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>informatii poligon in format geo xml</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol7">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="categorie_animale" type="sectiuneCapitol7" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="semestru" use="required">
+          <xs:simpleType>
+            <xs:restriction base="xs:int">
+              <xs:maxInclusive value="2"/>
+              <xs:minInclusive value="1"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol7">
+    <xs:complexContent>
+      <xs:extension base="unitateNomenclator">
+        <xs:sequence>
+          <xs:element name="crotalie" type="Crotalie" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="nrCapete" type="INTREG_POZITIV"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Crotalie">
+    <xs:sequence/>
+    <xs:attribute name="codIdentificare" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="capitol8">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="categorie_animale_evolutie_efectiva" type="sectiuneCapitol8" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="semestru" use="required">
+          <xs:simpleType>
+            <xs:restriction base="xs:int">
+              <xs:maxInclusive value="2"/>
+              <xs:minInclusive value="1"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol8">
+    <xs:complexContent>
+      <xs:extension base="unitateNomenclator">
+        <xs:sequence>
+          <xs:element name="nrCapete" type="INTREG_POZITIV"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol9">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="sistem_tehnic_agricol" type="sectiuneCapitol9" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol9">
+    <xs:complexContent>
+      <xs:extension base="unitateNomenclator">
+        <xs:sequence>
+          <xs:element name="nrBucati" type="INTREG_POZITIV"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol10A">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="substanta_chimica_agricola" type="sectiuneCapitol10A" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol10A">
+    <xs:complexContent>
+      <xs:extension base="unitateNomenclator">
+        <xs:sequence>
+          <xs:element name="nrHA" type="INTREG_POZITIV"/>
+          <xs:element name="nrKG" type="INTREG_POZITIV"/>
+          <xs:element name="referintaGeoXml" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>informatii poligon in format geo xml</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol10B">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="culturi_ingrasaminte_chimice" type="sectiuneCapitol10B" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol10B">
+    <xs:complexContent>
+      <xs:extension base="unitateNomenclator">
+        <xs:sequence>
+          <xs:element name="nrHAazotoase" type="INTREG_POZITIV"/>
+          <xs:element name="nrHAfosfatice" type="INTREG_POZITIV"/>
+          <xs:element name="nrHApotasice" type="INTREG_POZITIV"/>
+          <xs:element name="nrKGazotoase" type="INTREG_POZITIV"/>
+          <xs:element name="nrKGfosfatice" type="INTREG_POZITIV"/>
+          <xs:element name="nrKGpotasice" type="INTREG_POZITIV"/>
+          <xs:element name="totalHA" type="INTREG_POZITIV"/>
+          <xs:element name="totalKG" type="INTREG_POZITIV"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol11">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="cladire" type="sectiuneCapitol11" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="anulareCapitol">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence/>
+        <xs:attribute name="semestru" type="xs:int"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol012">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="date_identificare_gospodarie_PF" type="sectiuneCapitol012"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol012">
+    <xs:complexContent>
+      <xs:extension base="dateIdentificareGospodarie">
+        <xs:sequence>
+          <xs:element name="gospodar" type="PF"/>
+          <xs:element name="elementeJuridice" type="RC" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>entitate fara personalitate juridica (PFA, II, IF); se completeaza doar pentru tip detinator 1 si tip exploatatie 2</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol034">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="date_identificare_gospodarie_PJ" type="sectiuneCapitol034"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol034">
+    <xs:complexContent>
+      <xs:extension base="dateIdentificareGospodarie">
+        <xs:sequence>
+          <xs:element name="adresaReprezentantLegal" type="Adresa"/>
+          <xs:element name="adresaSubdiviziuneEntitate" type="Adresa" minOccurs="0"/>
+          <xs:element name="denumireSubdiviziuneEntitate" type="xs:string" minOccurs="0"/>
+          <xs:element name="persoanaJuridica" type="RC"/>
+          <xs:element name="reprezentantLegal" type="PF"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol12">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="atestat_producator" type="sectiuneCapitol12" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol12">
+    <xs:sequence>
+      <xs:element name="certificatComercializare" type="CertificatComercializare" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="dataAvizConsultativ" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="dataEliberare">
+        <xs:simpleType>
+          <xs:restriction base="xs:dateTime"/>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="nrAvizConsulativ" type="xs:string" minOccurs="0"/>
+      <xs:element name="produs" type="Produs" maxOccurs="unbounded"/>
+      <xs:element name="serieNumar" type="NString"/>
+      <xs:element name="viza" type="Viza" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Produs">
+    <xs:sequence/>
+    <xs:attribute name="denumire" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="Viza">
+    <xs:sequence>
+      <xs:element name="dataViza">
+        <xs:simpleType>
+          <xs:restriction base="xs:dateTime"/>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="numarViza">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="capitol15B">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="contract_concesiune" type="sectiuneCapitol15B" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol15B">
+    <xs:complexContent>
+      <xs:extension base="contract">
+        <xs:choice>
+          <xs:element name="concesionarPF" type="PF"/>
+          <xs:element name="concesionarRC" type="RC"/>
+        </xs:choice>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol16">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="mentiuni_speciale" type="sectiuneCapitol16"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:simpleType name="sectiuneCapitol16">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="dezactivareGospodarie">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="anRaportareCentralizator">
+    <xs:choice>
+      <xs:element name="capitol_12a_centralizator" type="capitol12A"/>
+      <xs:element name="capitol_12a1_centralizator" type="capitol12A1"/>
+      <xs:element name="capitol_12b1_centralizator" type="capitol12B1"/>
+      <xs:element name="capitol_12b2_centralizator" type="capitol12B2"/>
+      <xs:element name="capitol_12c_centralizator" type="capitol12C"/>
+      <xs:element name="capitol_12d_centralizator" type="capitol12D"/>
+      <xs:element name="capitol_12e_centralizator" type="capitol12E"/>
+      <xs:element name="capitol_12f_centralizator" type="capitol12F"/>
+      <xs:element name="capitol_13_centralizator" type="capitol13Centralizator"/>
+      <xs:element name="anulareCapitol" type="anulareCapitol"/>
+    </xs:choice>
+    <xs:attribute name="an" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:int">
+          <xs:minInclusive value="2015"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="capitol12A1">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="cultura_speciala_in_camp" type="sectiuneCapitol12A1" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol12B2">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="cultura_in_spatiu_protejat" type="sectiuneCapitol12B2" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol12B2">
+    <xs:complexContent>
+      <xs:extension base="unitateNomenclator">
+        <xs:sequence>
+          <xs:element name="nrHA" type="INTREG_POZITIV"/>
+          <xs:element name="prodMedieKgPerHa" type="INTREG_POZITIV" minOccurs="0"/>
+          <xs:element name="prodTotalaTone" type="INTREG_POZITIV"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol12C">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="cultura_in_gradini" type="sectiuneCapitol12C" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol12C">
+    <xs:complexContent>
+      <xs:extension base="unitateNomenclator">
+        <xs:sequence>
+          <xs:element name="nrHA" type="INTREG_POZITIV"/>
+          <xs:element name="prodMedieKgPerHa" type="INTREG_POZITIV" minOccurs="0"/>
+          <xs:element name="prodTotalaTone" type="INTREG_POZITIV"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol12D">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="productie_fructe" type="sectiuneCapitol12D" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol12E">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="productie_fructe_in_teren_agricol" type="sectiuneCapitol12E" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol12F">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="productie_struguri" type="sectiuneCapitol12F" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sectiuneCapitol12F">
+    <xs:complexContent>
+      <xs:extension base="unitateNomenclator">
+        <xs:sequence>
+          <xs:element name="suprafata" type="INTREG_POZITIV"/>
+          <xs:element name="productieMedie" type="INTREG_POZITIV"/>
+          <xs:element name="productieTotala" type="INTREG_POZITIV"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="capitol13Centralizator">
+    <xs:complexContent>
+      <xs:extension base="capitol">
+        <xs:sequence>
+          <xs:element name="productie_animala" type="sectiuneCapitol13Centralizator" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ranDoc">
+    <xs:sequence>
+      <xs:element name="HEADER" type="header"/>
+      <xs:element name="BODY" type="body"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="header">
+    <xs:sequence>
+      <xs:element name="codXml" type="UUID" minOccurs="0"/>
+      <xs:element name="dataExport">
+        <xs:simpleType>
+          <xs:restriction base="xs:dateTime"/>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="indicativ" type="tipIndicativ"/>
+      <xs:element name="sirutaUAT">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="StringMaxSize9">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="9"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="adapterXmlCDATA">
+    <xs:complexContent>
+      <xs:extension base="xmlAdapter">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="xmlAdapter" abstract="true">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:simpleType name="tipIndicativ">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ADAUGA_SI_INLOCUIESTE"/>
+      <xs:enumeration value="DEZACTIVARE_GOSPODARIE"/>
+      <xs:enumeration value="INCARCA"/>
+      <xs:enumeration value="REACTIVARE_GOSPODARIE"/>
+      <xs:enumeration value="ANULEAZA"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+
