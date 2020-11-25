@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<sumarNomenclatoare>
+  <nomenclatoare>
+    <nomenclator>
+      <codNomenclator>NomFormaOrganizareRc</codNomenclator>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>NomTipRelPreemptiune</codNomenclator>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>NomTipSpatiuProt</codNomenclator>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>NomCapitol</codNomenclator>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>NomDestinatieCladire</codNomenclator>
+      <dataUltimeiActualizari>2015-11-19 11:19:40</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>NomLegaturaRudenie</codNomenclator>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>NomModalitateDetinere</codNomenclator>
+      <dataUltimeiActualizari>2018-02-14 12:16:48</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>NomTipAct</codNomenclator>
+      <dataUltimeiActualizari>2018-02-14 12:15:26</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>NomTipCladire</codNomenclator>
+      <dataUltimeiActualizari>2015-11-19 11:20:05</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>NomTipDetinator</codNomenclator>
+      <dataUltimeiActualizari>2015-11-19 11:20:05</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>NomTipExploatatie</codNomenclator>
+      <dataUltimeiActualizari>2015-11-19 11:20:05</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>NomTipLocalizare</codNomenclator>
+      <dataUltimeiActualizari>2015-11-19 11:20:05</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>CapCategorieAnimal-CAP7</codNomenclator>
+      <dataUltimeiActualizari>2015-11-19 11:19:39</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>CapCategorieAnimal-CAP8</codNomenclator>
+      <dataUltimeiActualizari>2015-11-19 11:19:39</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>CapCategorieFolosinta-CAP2a</codNomenclator>
+      <dataUltimeiActualizari>2015-11-19 11:19:39</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>CapPomRazlet-CAP5a</codNomenclator>
+      <dataUltimeiActualizari>2015-11-19 11:19:40</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>CapSubstantaChimica-CAP10b</codNomenclator>
+      <dataUltimeiActualizari>2015-11-19 11:19:40</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>CapAplicareIngrasamant-CAP10a</codNomenclator>
+      <dataUltimeiActualizari>2015-11-19 11:20:05</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>CapTerenIrigat-CAP6</codNomenclator>
+      <dataUltimeiActualizari>2015-11-19 11:19:41</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>CapFructProd-CAP12d</codNomenclator>
+      <dataUltimeiActualizari>2015-11-23 20:02:59</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>CapCultura-CAP4a</codNomenclator>
+      <dataUltimeiActualizari>2015-11-19 11:19:39</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>CapCultura-CAP4a1</codNomenclator>
+      <dataUltimeiActualizari>2015-11-19 11:19:39</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>CapCultura-CAP4b1</codNomenclator>
+      <dataUltimeiActualizari>2015-11-19 11:19:39</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>CapCultura-CAP4c</codNomenclator>
+      <dataUltimeiActualizari>2015-11-19 11:19:39</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>CapCulturaProd-CAP12a</codNomenclator>
+      <dataUltimeiActualizari>2015-11-19 11:19:39</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>CapCulturaProd-CAP12a1</codNomenclator>
+      <dataUltimeiActualizari>2015-11-19 11:19:39</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>CapCulturaProd-CAP12b1</codNomenclator>
+      <dataUltimeiActualizari>2015-11-19 11:19:39</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>CapCulturaProd-CAP12b2</codNomenclator>
+      <dataUltimeiActualizari>2015-11-19 11:19:39</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>CapCulturaProd-CAP12c</codNomenclator>
+      <dataUltimeiActualizari>2015-11-19 11:19:39</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>CapPlantatie-CAP5b</codNomenclator>
+      <dataUltimeiActualizari>2015-11-19 11:20:05</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>CapPlantatie-CAP5c</codNomenclator>
+      <dataUltimeiActualizari>2015-11-19 11:20:05</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>CapPlantatie-CAP5d</codNomenclator>
+      <dataUltimeiActualizari>2015-11-19 11:20:05</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>CapPlantatieProd-CAP12e</codNomenclator>
+      <dataUltimeiActualizari>2015-11-24 11:11:40</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>CapPlantatieProd-CAP12f</codNomenclator>
+      <dataUltimeiActualizari>2015-11-24 11:11:40</dataUltimeiActualizari>
+    </nomenclator>
+    <nomenclator>
+      <codNomenclator>CapSistemTehnic-CAP9</codNomenclator>
+      <dataUltimeiActualizari>2015-11-19 11:19:40</dataUltimeiActualizari>
+    </nomenclator>
+  </nomenclatoare>
+</sumarNomenclatoare>

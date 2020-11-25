@@ -33,3 +33,5 @@ C:\code\exportXml\bin\Debug\net5.0\XML\CAP0_34\4.1.43.1.xml The element 'persoan
 C:\code\exportXml\bin\Debug\net5.0\XML\CAP0_34\4.1.6.1.xml The element 'persoanaJuridica' has incomplete content. List of possible elements expected: 'formaOrganizareRC'.
 C:\code\exportXml\bin\Debug\net5.0\XML\CAP0_34\4.1.8.1.xml The 'value' attribute is invalid - The value '' is invalid according to its datatype 'String' - The Pattern constraint failed.
 C:\code\exportXml\bin\Debug\net5.0\XML\CAP0_34\4.1.9.1.xml The element 'persoanaJuridica' has incomplete content. List of possible elements expected: 'formaOrganizareRC'.
+C:\code\exportXml\bin\Debug\net5.0\XML\CAP4a1\1.1.1.1.xml The element 'capitol_4a1' has incomplete content. List of possible elements expected: 'cultura_speciala_in_camp'.
+C:\code\exportXml\bin\Debug\net5.0\XML\CAP4a1\1.1.1.1.xml The element 'capitol_4a1' has incomplete content. List of possible elements expected: 'cultura_speciala_in_camp'.

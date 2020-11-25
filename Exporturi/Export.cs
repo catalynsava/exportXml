@@ -95,9 +95,6 @@ namespace exportXml.Exporturi
             }
         }
         public static void cap1(){
-            
-            
-            
             string strSQL = "SELECT idRol, nume, prenume, cnp FROM adrrol WHERE (tip=1 OR tip=2) AND sistat<>\"DA\";";
             OleDbCommand cmdTEMP = new System.Data.OleDb.OleDbCommand(strSQL, BazaDeDate.conexiune);
             OleDbDataReader drTEMP = cmdTEMP.ExecuteReader();
@@ -271,6 +268,42 @@ namespace exportXml.Exporturi
                         AjutExport.moveWrongXML(
                             AppDomain.CurrentDomain.BaseDirectory.ToString() + "XML\\CAP4a\\" + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml",
                             AppDomain.CurrentDomain.BaseDirectory.ToString() + "XML\\CAP4a_Wrong\\" + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml"
+                        );
+                        Console.WriteLine(drTEMP["idRol"] + " " + drTEMP["nume"] + " " + drTEMP["prenume"] + " " + strXMLvalid);
+                    }else{
+                        Console.WriteLine(drTEMP["idRol"] + " " + drTEMP["nume"] + " " + drTEMP["prenume"] + " " + strXMLvalid);
+                    }
+                }
+            }
+        }
+        public static void cap4a1(){
+            string strSQL="DELETE FROM CAP4a1 WHERE sup=0";
+            OleDbCommand cmdTEMP = new System.Data.OleDb.OleDbCommand(strSQL, BazaDeDate.conexiune);
+            cmdTEMP.ExecuteNonQuery();
+
+            strSQL = "SELECT idRol, nume, prenume, cnp FROM adrrol WHERE idRol IN (SELECT idRol FROM cap4a1) AND sistat<>\"DA\";";
+            cmdTEMP = new System.Data.OleDb.OleDbCommand(strSQL, BazaDeDate.conexiune);
+            OleDbDataReader drTEMP = cmdTEMP.ExecuteReader();
+
+            while (drTEMP.Read()){
+
+                bool existaInRoluri=false;
+                if(File.Exists(AppDomain.CurrentDomain.BaseDirectory.ToString() + "XML\\CAP0_12\\" + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml")){
+                    existaInRoluri=true ;
+                }
+                if(File.Exists(AppDomain.CurrentDomain.BaseDirectory.ToString() + "XML\\CAP0_34\\" + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml")){
+                    existaInRoluri=true;
+                }
+
+                if(existaInRoluri==true){
+
+                    CAP4a1.make_CAP4a1xml(drTEMP["idRol"].ToString());
+                    
+                    string strXMLvalid = AjutExport.XMLok(AppDomain.CurrentDomain.BaseDirectory.ToString() + "XML\\CAP4a1\\" + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml");
+                    if (strXMLvalid != "ok"){
+                        AjutExport.moveWrongXML(
+                            AppDomain.CurrentDomain.BaseDirectory.ToString() + "XML\\CAP4a1\\" + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml",
+                            AppDomain.CurrentDomain.BaseDirectory.ToString() + "XML\\CAP4a1_Wrong\\" + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml"
                         );
                         Console.WriteLine(drTEMP["idRol"] + " " + drTEMP["nume"] + " " + drTEMP["prenume"] + " " + strXMLvalid);
                     }else{
