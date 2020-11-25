@@ -35,3 +35,6 @@ C:\code\exportXml\bin\Debug\net5.0\XML\CAP0_34\4.1.8.1.xml The 'value' attribute
 C:\code\exportXml\bin\Debug\net5.0\XML\CAP0_34\4.1.9.1.xml The element 'persoanaJuridica' has incomplete content. List of possible elements expected: 'formaOrganizareRC'.
 C:\code\exportXml\bin\Debug\net5.0\XML\CAP4a1\1.1.1.1.xml The element 'capitol_4a1' has incomplete content. List of possible elements expected: 'cultura_speciala_in_camp'.
 C:\code\exportXml\bin\Debug\net5.0\XML\CAP4a1\1.1.1.1.xml The element 'capitol_4a1' has incomplete content. List of possible elements expected: 'cultura_speciala_in_camp'.
+C:\code\exportXml\bin\Debug\net5.0\XML\CAP4b1\1.1.1.1.xml The element 'cultura_in_sere' has invalid child element 'nrARI'. List of possible elements expected: 'nrMP'.
+C:\code\exportXml\bin\Debug\net5.0\XML\CAP4b1\1.1.1.1.xml The 'value' attribute is invalid - The value '3,5' is invalid according to its datatype 'Int' - The string '3,5' is not a valid Int32 value.
+C:\code\exportXml\bin\Debug\net5.0\XML\CAP4b1\1.1.2.1.xml The 'value' attribute is invalid - The value '1,5' is invalid according to its datatype 'Int' - The string '1,5' is not a valid Int32 value.

@@ -312,6 +312,42 @@ namespace exportXml.Exporturi
                 }
             }
         }
+        public static void cap4b1(){
+            string strSQL="DELETE FROM CAP4b WHERE sup=0";
+            OleDbCommand cmdTEMP = new System.Data.OleDb.OleDbCommand(strSQL, BazaDeDate.conexiune);
+            cmdTEMP.ExecuteNonQuery();
+
+            strSQL = "SELECT idRol, nume, prenume, cnp FROM adrrol WHERE idRol IN (SELECT idRol FROM cap4b) AND sistat<>\"DA\";";
+            cmdTEMP = new System.Data.OleDb.OleDbCommand(strSQL, BazaDeDate.conexiune);
+            OleDbDataReader drTEMP = cmdTEMP.ExecuteReader();
+
+            while (drTEMP.Read()){
+
+                bool existaInRoluri=false;
+                if(File.Exists(AppDomain.CurrentDomain.BaseDirectory.ToString() + "XML\\CAP0_12\\" + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml")){
+                    existaInRoluri=true ;
+                }
+                if(File.Exists(AppDomain.CurrentDomain.BaseDirectory.ToString() + "XML\\CAP0_34\\" + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml")){
+                    existaInRoluri=true;
+                }
+
+                if(existaInRoluri==true){
+
+                    CAP4b1.make_CAP4b1xml(drTEMP["idRol"].ToString());
+                    
+                    string strXMLvalid = AjutExport.XMLok(AppDomain.CurrentDomain.BaseDirectory.ToString() + "XML\\CAP4b1\\" + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml");
+                    if (strXMLvalid != "ok"){
+                        AjutExport.moveWrongXML(
+                            AppDomain.CurrentDomain.BaseDirectory.ToString() + "XML\\CAP4b1\\" + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml",
+                            AppDomain.CurrentDomain.BaseDirectory.ToString() + "XML\\CAP4b1_Wrong\\" + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml"
+                        );
+                        Console.WriteLine(drTEMP["idRol"] + " " + drTEMP["nume"] + " " + drTEMP["prenume"] + " " + strXMLvalid);
+                    }else{
+                        Console.WriteLine(drTEMP["idRol"] + " " + drTEMP["nume"] + " " + drTEMP["prenume"] + " " + strXMLvalid);
+                    }
+                }
+            }
+        }
          public static void cap5a(){
             string strSQL="DELETE FROM CAP5 WHERE rod=0 and tin=0";
             OleDbCommand cmdTEMP = new System.Data.OleDb.OleDbCommand(strSQL, BazaDeDate.conexiune);
