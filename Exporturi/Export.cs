@@ -711,6 +711,42 @@ namespace exportXml.Exporturi
                 }
             }
         }
+        public static void cap10a(){
+            string strSQL="DELETE FROM CAP10a WHERE sup=0 AND can=0";
+            OleDbCommand cmdTEMP = new OleDbCommand(strSQL, BazaDeDate.conexiune);
+            cmdTEMP.ExecuteNonQuery();
+
+            strSQL = "SELECT idRol, nume, prenume, cnp FROM adrrol WHERE idRol IN (SELECT idRol FROM CAP10a) AND sistat<>\"DA\";";
+            cmdTEMP = new System.Data.OleDb.OleDbCommand(strSQL, BazaDeDate.conexiune);
+            OleDbDataReader drTEMP = cmdTEMP.ExecuteReader();
+
+            while (drTEMP.Read()){
+
+                bool existaInRoluri=false;
+                if(File.Exists(AppDomain.CurrentDomain.BaseDirectory.ToString() + "XML\\CAP0_12\\" + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml")){
+                    existaInRoluri=true ;
+                }
+                if(File.Exists(AppDomain.CurrentDomain.BaseDirectory.ToString() + "XML\\CAP0_34\\" + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml")){
+                    existaInRoluri=true;
+                }
+
+                if(existaInRoluri==true){
+
+                   CAP10a.make_CAP10axml(drTEMP["idRol"].ToString());
+                    
+                    string strXMLvalid = AjutExport.XMLok(AppDomain.CurrentDomain.BaseDirectory.ToString() + "XML\\CAP10a\\" + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml");
+                    if (strXMLvalid != "ok"){
+                        AjutExport.moveWrongXML(
+                            AppDomain.CurrentDomain.BaseDirectory.ToString() + "XML\\CAP10a\\" + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml",
+                            AppDomain.CurrentDomain.BaseDirectory.ToString() + "XML\\CAP10a_Wrong\\" + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml"
+                        );
+                        Console.WriteLine(drTEMP["idRol"] + " " + drTEMP["nume"] + " " + drTEMP["prenume"] + " " + strXMLvalid);
+                    }else{
+                        Console.WriteLine(drTEMP["idRol"] + " " + drTEMP["nume"] + " " + drTEMP["prenume"] + " " + strXMLvalid);
+                    }
+                }
+            }
+        }
         public static void cap11(){
 
             string strSQL = "SELECT idRol, nume, sirues, prenume, cnp FROM adrrol WHERE adrrol.idrol in(select idrol from cap11);";
