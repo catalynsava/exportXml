@@ -409,3 +409,23 @@ C:\code\exportXml\bin\Debug\net5.0\XML\CAP10a\4.1.40.1.xml The 'value' attribute
 C:\code\exportXml\bin\Debug\net5.0\XML\CAP10a\4.1.45.1.xml The 'value' attribute is invalid - The value '0,94' is invalid according to its datatype 'Int' - The string '0,94' is not a valid Int32 value.
 C:\code\exportXml\bin\Debug\net5.0\XML\CAP10a\4.1.47.1.xml The 'value' attribute is invalid - The value '0,334' is invalid according to its datatype 'Int' - The string '0,334' is not a valid Int32 value.
 C:\code\exportXml\bin\Debug\net5.0\XML\CAP10a\4.1.7.1.xml The 'value' attribute is invalid - The value '47,8' is invalid according to its datatype 'Int' - The string '47,8' is not a valid Int32 value.
+C:\code\exportXml\bin\Debug\net5.0\XML\CAP10b\1.3.2.1.xml The element 'substanta_chimica_agricola' has invalid child element 'nrHAazotoase'. List of possible elements expected: 'nrHA'.
+C:\code\exportXml\bin\Debug\net5.0\XML\CAP10b\3.1.20.1.xml The element 'substanta_chimica_agricola' has invalid child element 'nrHAazotoase'. List of possible elements expected: 'nrHA'.
+C:\code\exportXml\bin\Debug\net5.0\XML\CAP10b\3.1.6.1.xml The element 'substanta_chimica_agricola' has invalid child element 'nrHAazotoase'. List of possible elements expected: 'nrHA'.
+C:\code\exportXml\bin\Debug\net5.0\XML\CAP10b\3.1.7.1.xml The element 'substanta_chimica_agricola' has invalid child element 'nrHAazotoase'. List of possible elements expected: 'nrHA'.
+C:\code\exportXml\bin\Debug\net5.0\XML\CAP10b\4.1.20.1.xml The element 'substanta_chimica_agricola' has invalid child element 'nrHAazotoase'. List of possible elements expected: 'nrHA'.
+C:\code\exportXml\bin\Debug\net5.0\XML\CAP10b\4.1.35.1.xml The element 'substanta_chimica_agricola' has invalid child element 'nrHAazotoase'. List of possible elements expected: 'nrHA'.
+C:\code\exportXml\bin\Debug\net5.0\XML\CAP10b\4.1.40.1.xml The element 'substanta_chimica_agricola' has invalid child element 'nrHAazotoase'. List of possible elements expected: 'nrHA'.
+C:\code\exportXml\bin\Debug\net5.0\XML\CAP10b\4.1.45.1.xml The element 'substanta_chimica_agricola' has invalid child element 'nrHAazotoase'. List of possible elements expected: 'nrHA'.
+C:\code\exportXml\bin\Debug\net5.0\XML\CAP10b\4.1.47.1.xml The element 'substanta_chimica_agricola' has invalid child element 'nrHAazotoase'. List of possible elements expected: 'nrHA'.
+C:\code\exportXml\bin\Debug\net5.0\XML\CAP10b\4.1.7.1.xml The element 'substanta_chimica_agricola' has invalid child element 'nrHAazotoase'. List of possible elements expected: 'nrHA'.
+C:\code\exportXml\bin\Debug\net5.0\XML\CAP10b\1.3.2.1.xml The element 'capitol_10a' has invalid child element 'culturi_ingrasaminte_chimice'. List of possible elements expected: 'substanta_chimica_agricola'.
+C:\code\exportXml\bin\Debug\net5.0\XML\CAP10b\3.1.20.1.xml The element 'capitol_10a' has invalid child element 'culturi_ingrasaminte_chimice'. List of possible elements expected: 'substanta_chimica_agricola'.
+C:\code\exportXml\bin\Debug\net5.0\XML\CAP10b\3.1.6.1.xml The element 'capitol_10a' has invalid child element 'culturi_ingrasaminte_chimice'. List of possible elements expected: 'substanta_chimica_agricola'.
+C:\code\exportXml\bin\Debug\net5.0\XML\CAP10b\3.1.7.1.xml The element 'capitol_10a' has invalid child element 'culturi_ingrasaminte_chimice'. List of possible elements expected: 'substanta_chimica_agricola'.
+C:\code\exportXml\bin\Debug\net5.0\XML\CAP10b\4.1.20.1.xml The element 'capitol_10a' has invalid child element 'culturi_ingrasaminte_chimice'. List of possible elements expected: 'substanta_chimica_agricola'.
+C:\code\exportXml\bin\Debug\net5.0\XML\CAP10b\4.1.35.1.xml The element 'capitol_10a' has invalid child element 'culturi_ingrasaminte_chimice'. List of possible elements expected: 'substanta_chimica_agricola'.
+C:\code\exportXml\bin\Debug\net5.0\XML\CAP10b\4.1.40.1.xml The element 'capitol_10a' has invalid child element 'culturi_ingrasaminte_chimice'. List of possible elements expected: 'substanta_chimica_agricola'.
+C:\code\exportXml\bin\Debug\net5.0\XML\CAP10b\4.1.45.1.xml The element 'capitol_10a' has invalid child element 'culturi_ingrasaminte_chimice'. List of possible elements expected: 'substanta_chimica_agricola'.
+C:\code\exportXml\bin\Debug\net5.0\XML\CAP10b\4.1.47.1.xml The element 'capitol_10a' has invalid child element 'culturi_ingrasaminte_chimice'. List of possible elements expected: 'substanta_chimica_agricola'.
+C:\code\exportXml\bin\Debug\net5.0\XML\CAP10b\4.1.7.1.xml The element 'capitol_10a' has invalid child element 'culturi_ingrasaminte_chimice'. List of possible elements expected: 'substanta_chimica_agricola'.
