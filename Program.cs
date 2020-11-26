@@ -102,6 +102,10 @@ namespace exportXml
                     Export.comun("CAP4b2");
                     Export.cap4b2();
                 }
+                if(args[2]=="CAP4c"){
+                    Export.comun("CAP4c");
+                    Export.cap4c();
+                }
                 if(args[2]=="CAP5a"){
                     Export.comun("CAP5a");
                     Export.cap5a();
@@ -109,6 +113,10 @@ namespace exportXml
                 if(args[2]=="CAP5b"){
                     Export.comun("CAP5b");
                     Export.cap5b();
+                }
+                if(args[2]=="CAP5c"){
+                    Export.comun("CAP5c");
+                    Export.cap5c();
                 }
                 if(args[2]=="CAP5d"){
                     Export.comun("CAP5d");
