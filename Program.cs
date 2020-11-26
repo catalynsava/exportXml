@@ -146,6 +146,10 @@ namespace exportXml
                         Export.cap8(1);
                     }
                 }
+                if(args[2]=="CAP9"){
+                    Export.comun("CAP9");
+                    Export.cap9();
+                }
                 if(args[2]=="CAP11"){
                     Export.comun("CAP11");
                     Export.cap11();
