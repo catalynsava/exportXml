@@ -122,6 +122,10 @@ namespace exportXml
                     Export.comun("CAP5d");
                     Export.cap5d();
                 }
+                if(args[2]=="CAP6"){
+                    Export.comun("CAP6");
+                    Export.cap6();
+                }
                 if(args[2]=="CAP7"){
                     Export.comun("CAP7");
                     if(args[3]=="1"){
