@@ -176,7 +176,7 @@ namespace exportXml.Exporturi
                             }
                             else
                             {
-                                xmlWriter.WriteAttributeString("value", AjutExport.genereazaCNP(AjutExport.GetNumeJudetRol(strIdRol), DateTime.Now));
+                                xmlWriter.WriteAttributeString("value", AjutExport.genereazaCNP(AjutExport.GetNumeJudetRol(strIdRol), DateTime.Now.AddYears(5)));
                             }
                        
 

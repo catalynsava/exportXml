@@ -10,7 +10,7 @@ namespace exportXml.Exporturi
     {
         public static bool make_CAP0_34xml(string strIdRol)
         {
-            string formadeorganizarestring="";
+            
             string strGosp = strIdRol;
             strGosp = strGosp.Substring(0, strIdRol.Length - 3);
 
@@ -34,6 +34,7 @@ namespace exportXml.Exporturi
             {
                 return false;
             }
+            
             Sirute adrrolSirute=new Sirute(drAdrrol["localitate"].ToString(), drAdrrol["judet"].ToString());
 
             if (adrrolSirute.Siruta == "" | adrrolSirute.SirutaJudet == "" | adrrolSirute.SirutaSuperioara == "")
@@ -43,7 +44,7 @@ namespace exportXml.Exporturi
             }
 
             
-
+            string formadeorganizarestring=AjutExport.getFormaDeOrganizare(drAdrrol["nume"].ToString());
 
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = false;
@@ -78,7 +79,7 @@ namespace exportXml.Exporturi
             xmlWriter.WriteAttributeString("denumire", "Date de identificare a gospodăriei deținute de persoană juridică");
             xmlWriter.WriteStartElement("date_identificare_gospodarie_PJ");
 
-            //adresaGospodarie
+            //<adresaGospodarie>
             xmlWriter.WriteStartElement("adresaGospodarie");
             xmlWriter.WriteElementString("apartament", drAdrrol["ap"].ToString());
             xmlWriter.WriteElementString("bloc", drAdrrol["bloc"].ToString());
@@ -90,6 +91,7 @@ namespace exportXml.Exporturi
             xmlWriter.WriteElementString("strada", drAdrrol["strada"].ToString());
             xmlWriter.WriteEndElement();
 
+            //<codExploatatie>
             if (drAdrrol["codexp"].ToString()!="")
             {
                 xmlWriter.WriteElementString("codExploatatie", drAdrrol["codexp"].ToString());
@@ -99,16 +101,15 @@ namespace exportXml.Exporturi
                 xmlWriter.WriteElementString("codExploatatie", "");
             }
 
+            //<domiciliuFiscalRo>
             string strSQLper = "SELECT * FROM adrPJ WHERE idrol=\"" + strIdRol + "\";";
             OleDbCommand cmdAdresaPJ = new OleDbCommand(strSQLper, BazaDeDate.conexiune );
             OleDbDataReader drAdresaPJ = cmdAdresaPJ.ExecuteReader();
             if(drAdresaPJ.Read()){
 
                 Sirute adrpjSirute=new Sirute(drAdresaPJ["localitate"].ToString(), drAdresaPJ["judet"].ToString());
-                Console.WriteLine(adrpjSirute.SirutaJudet+ " " + adrpjSirute.SirutaSuperioara + " " + adrpjSirute.Siruta);
-                if (adrpjSirute.SirutaJudet== "" || adrpjSirute.SirutaSuperioara == "" || adrpjSirute.Siruta == ""){
-                    //daca nu gasesc siruta atunci merg pe adresa gospodarie
 
+                if (adrpjSirute.SirutaJudet== "" || adrpjSirute.SirutaSuperioara == "" || adrpjSirute.Siruta == ""){
                     xmlWriter.WriteStartElement("domiciliuFiscalRo");
                     xmlWriter.WriteElementString("apartament", drAdrrol["ap"].ToString());
                     xmlWriter.WriteElementString("bloc", drAdrrol["bloc"].ToString());
@@ -143,22 +144,28 @@ namespace exportXml.Exporturi
                 xmlWriter.WriteElementString("strada", drAdrrol["strada"].ToString());
                 xmlWriter.WriteEndElement();
             }
+            //--
 
-            
-
+            //<nrUnicIdentificare>
             xmlWriter.WriteElementString("nrUnicIdentificare", drAdrrol["nrUI"].ToString());
+            //--
 
+            //<pozitieGospodarie>
             xmlWriter.WriteStartElement("pozitieGospodarie");
             xmlWriter.WriteElementString("pozitiaAnterioara", "0");
             xmlWriter.WriteElementString("pozitieCurenta", drAdrrol["poz"].ToString());
             xmlWriter.WriteElementString("volumul", drAdrrol["vol"].ToString());
-
             int x = 0;
             Int32.TryParse(drAdrrol["rolimp"].ToString(), out x);
             xmlWriter.WriteElementString("rolNominalUnic", x.ToString());
             xmlWriter.WriteEndElement();
+            //--
 
+            //<tipDetinator>
             xmlWriter.WriteElementString("tipDetinator", drAdrrol["tip"].ToString());
+            //--
+
+            //<tipExploatatie>
             string strNomCodExploatatie;
             switch (drAdrrol["tipExploa"].ToString())
             {
@@ -200,107 +207,83 @@ namespace exportXml.Exporturi
                     break;
             }
             xmlWriter.WriteElementString("tipExploatatie", strNomCodExploatatie);
+            //--
 
+            //<adresaReprezentantLegal>
             strSQLper = "SELECT * FROM PerJur WHERE idrol=\"" + strIdRol + "\";";
             OleDbCommand cmdTEMPper = new OleDbCommand(strSQLper, BazaDeDate.conexiune);
             OleDbDataReader drTEMPper = cmdTEMPper.ExecuteReader();
 
             if (drTEMPper.Read())
             {
-                Sirute pjSirute=new Sirute(drTEMPper["localitate"].ToString(), drTEMPper["judet"].ToString());
-                Console.WriteLine(pjSirute.SirutaJudet+ " " + pjSirute.SirutaSuperioara + " " + pjSirute.Siruta);
-
-                if (pjSirute.SirutaJudet== "" || pjSirute.SirutaSuperioara == "" || pjSirute.Siruta == ""){
-                    xmlWriter.WriteStartElement("adresaReprezentantLegal");
-                    xmlWriter.WriteElementString("apartament", drAdrrol["ap"].ToString());
-                    xmlWriter.WriteElementString("bloc", drAdrrol["bloc"].ToString());
-                    xmlWriter.WriteElementString("numar", drAdrrol["nr"].ToString());
-                    xmlWriter.WriteElementString("scara", drAdrrol["scara"].ToString());
-                    xmlWriter.WriteElementString("sirutaJudet", adrrolSirute.SirutaJudet);
-                    xmlWriter.WriteElementString("sirutaLocalitate", adrrolSirute.Siruta);
-                    xmlWriter.WriteElementString("sirutaUAT", adrrolSirute.SirutaSuperioara);
-                    xmlWriter.WriteElementString("strada", drAdrrol["strada"].ToString());
-                    xmlWriter.WriteEndElement();
-                }else{
-                    xmlWriter.WriteStartElement("adresaReprezentantLegal");
-                    xmlWriter.WriteElementString("apartament", drTEMPper["ap"].ToString());
-                    xmlWriter.WriteElementString("bloc", drTEMPper["bloc"].ToString());
-                    xmlWriter.WriteElementString("etaj", "");
-                    xmlWriter.WriteElementString("numar", drTEMPper["nr"].ToString());
-                    xmlWriter.WriteElementString("scara", "");
-                    xmlWriter.WriteElementString("sirutaJudet", pjSirute.SirutaJudet);
-                    xmlWriter.WriteElementString("sirutaLocalitate", pjSirute.Siruta);
-                    xmlWriter.WriteElementString("sirutaUAT", pjSirute.SirutaSuperioara);
-                    xmlWriter.WriteElementString("strada", drTEMPper["strada"].ToString());
-                    xmlWriter.WriteEndElement();
-                }
-
-                xmlWriter.WriteStartElement("persoanaJuridica");
-                xmlWriter.WriteStartElement("cui");
-                xmlWriter.WriteAttributeString("value", drAdrrol["cnp"].ToString());
-                xmlWriter.WriteEndElement();
-                xmlWriter.WriteElementString("denumire", drAdrrol["nume"].ToString());
-                if (drAdrrol["nume"].ToString().Length>3)
-                {
-                    switch (drAdrrol["nume"].ToString().Substring(drAdrrol["nume"].ToString().Length-3, 3))
-                    {
-                        case " SA":
-                            xmlWriter.WriteElementString("formaOrganizareRC", "SA");
-                            formadeorganizarestring="SA";
-                            break;
-                        case " II":
-                            xmlWriter.WriteElementString("formaOrganizareRC", "II");
-                            formadeorganizarestring="II";
-                            break;
-                        case " IF":
-                            xmlWriter.WriteElementString("formaOrganizareRC", "IF");
-                            formadeorganizarestring="IF";
-                            break;
-                        default:
-                            if (drAdrrol["nume"].ToString().Length>4)
-                            {
-                                switch (drAdrrol["nume"].ToString().Substring(drAdrrol["nume"].ToString().Length-4, 4))
-                                {
-                                    case " SNC"://Societate in nume colectiv
-                                        xmlWriter.WriteElementString("formaOrganizareRC", "SNC");
-                                        formadeorganizarestring="SMC";
-                                        break;
-                                    case " SCS"://Societate in comandita simpla
-                                        xmlWriter.WriteElementString("formaOrganizareRC", "SCS");
-                                        formadeorganizarestring="SCS";
-                                        break;
-                                    case " SCA"://Societate in comandita simpla
-                                        xmlWriter.WriteElementString("formaOrganizareRC", "SCA");
-                                        formadeorganizarestring="SCA";
-                                        break;
-                                    case " SRL"://Societate cu raspundere limitata
-                                        xmlWriter.WriteElementString("formaOrganizareRC", "SRL");
-                                        formadeorganizarestring="SRL";
-                                        break;
-                                    case " PFA"://Societate cu raspundere limitata
-                                        xmlWriter.WriteElementString("formaOrganizareRC", "PFA");
-                                        formadeorganizarestring="PFA";
-                                        break;
-                                }
-                                if (drAdrrol["nume"].ToString().Substring(1, 4) == " PFA")
-                                {
-                                    xmlWriter.WriteElementString("formaOrganizareRC", "PFA");
-                                }
-                            }else{
-                                xmlWriter.WriteElementString("formaOrganizareRC", "SRL");
-                            }
-
-                            break;
-                    }
-                }
-                else
-                {
-                    xmlWriter.WriteElementString("formaOrganizareRC", "SRL");
-                }
+                //RaspunsValidare raspunsCnpPerJur=new RaspunsValidare();
+                //raspunsCnpPerJur=Validari.CnpValidare.verificaCNP(drTEMPper["cnp"].ToString());
+                //if(raspunsCnpPerJur.corect==true){
                 
+                    Sirute pjSirute=new Sirute(drTEMPper["localitate"].ToString(), drTEMPper["judet"].ToString());
+                    Console.WriteLine(pjSirute.SirutaJudet+ " " + pjSirute.SirutaSuperioara + " " + pjSirute.Siruta);
+
+                    if (pjSirute.SirutaJudet== "" || pjSirute.SirutaSuperioara == "" || pjSirute.Siruta == ""){
+                        xmlWriter.WriteStartElement("adresaReprezentantLegal");
+                        xmlWriter.WriteElementString("apartament", drAdrrol["ap"].ToString());
+                        xmlWriter.WriteElementString("bloc", drAdrrol["bloc"].ToString());
+                        xmlWriter.WriteElementString("numar", drAdrrol["nr"].ToString());
+                        xmlWriter.WriteElementString("scara", drAdrrol["scara"].ToString());
+                        xmlWriter.WriteElementString("sirutaJudet", adrrolSirute.SirutaJudet);
+                        xmlWriter.WriteElementString("sirutaLocalitate", adrrolSirute.Siruta);
+                        xmlWriter.WriteElementString("sirutaUAT", adrrolSirute.SirutaSuperioara);
+                        xmlWriter.WriteElementString("strada", drAdrrol["strada"].ToString());
+                        xmlWriter.WriteEndElement();
+                    }else{
+                        xmlWriter.WriteStartElement("adresaReprezentantLegal");
+                        xmlWriter.WriteElementString("apartament", drTEMPper["ap"].ToString());
+                        xmlWriter.WriteElementString("bloc", drTEMPper["bloc"].ToString());
+                        xmlWriter.WriteElementString("etaj", "");
+                        xmlWriter.WriteElementString("numar", drTEMPper["nr"].ToString());
+                        xmlWriter.WriteElementString("scara", "");
+                        xmlWriter.WriteElementString("sirutaJudet", pjSirute.SirutaJudet);
+                        xmlWriter.WriteElementString("sirutaLocalitate", pjSirute.Siruta);
+                        xmlWriter.WriteElementString("sirutaUAT", pjSirute.SirutaSuperioara);
+                        xmlWriter.WriteElementString("strada", drTEMPper["strada"].ToString());
+                        xmlWriter.WriteEndElement();
+                    }
+                //}
+            }else{
+                xmlWriter.WriteStartElement("adresaReprezentantLegal");
+                xmlWriter.WriteElementString("apartament", drAdrrol["ap"].ToString());
+                xmlWriter.WriteElementString("bloc", drAdrrol["bloc"].ToString());
+                xmlWriter.WriteElementString("numar", drAdrrol["nr"].ToString());
+                xmlWriter.WriteElementString("scara", drAdrrol["scara"].ToString());
+                xmlWriter.WriteElementString("sirutaJudet", adrrolSirute.SirutaJudet);
+                xmlWriter.WriteElementString("sirutaLocalitate", adrrolSirute.Siruta);
+                xmlWriter.WriteElementString("sirutaUAT", adrrolSirute.SirutaSuperioara);
+                xmlWriter.WriteElementString("strada", drAdrrol["strada"].ToString());
                 xmlWriter.WriteEndElement();
+            }
+            //--
 
 
+            //<persoanaJuridica>
+            xmlWriter.WriteStartElement("persoanaJuridica");
+            xmlWriter.WriteStartElement("cui");
+            xmlWriter.WriteAttributeString("value", drAdrrol["cnp"].ToString());
+            xmlWriter.WriteEndElement();
+            xmlWriter.WriteElementString("denumire", drAdrrol["nume"].ToString());
+
+            xmlWriter.WriteElementString("formaOrganizareRC", AjutExport.getFormaDeOrganizare(drAdrrol["nume"].ToString()));
+
+                    
+            xmlWriter.WriteEndElement();
+            //--
+            
+            //<reprezentantLegal>
+            strSQLper = "SELECT * FROM PerJur WHERE idrol=\"" + strIdRol + "\";";
+            cmdTEMPper = new OleDbCommand(strSQLper, BazaDeDate.conexiune);
+            drTEMPper = cmdTEMPper.ExecuteReader();
+
+            if (drTEMPper.Read())
+            {
+                
                 xmlWriter.WriteStartElement("reprezentantLegal");
                 if (drTEMPper["nume"].ToString().Length>0)
                 {
@@ -316,14 +299,14 @@ namespace exportXml.Exporturi
                 {
                     xmlWriter.WriteElementString("prenume", "-");
                 }
-                
+                    
                 if (drTEMPper["i"].ToString().Length>0)
                 {
                     xmlWriter.WriteElementString("initialaTata", drTEMPper["i"].ToString());
                 }else{
                     xmlWriter.WriteElementString("initialaTata", "-");
                 }
-                
+                    
                 xmlWriter.WriteStartElement("cnp");
                 RaspunsValidare rsp=new RaspunsValidare();
                 rsp=CnpValidare.verificaCNP(drTEMPper["cnp"].ToString());
@@ -331,58 +314,42 @@ namespace exportXml.Exporturi
                 {
                     xmlWriter.WriteAttributeString("value", drTEMPper["cnp"].ToString());
                 }else{
-                    xmlWriter.WriteAttributeString("value", "");
+                    //xmlWriter.WriteAttributeString("value", "");
+                    xmlWriter.WriteAttributeString("value", 
+                            AjutExport.genereazaCNP
+                            (AjutExport.GetNumeJudetRol(strIdRol),DateTime.Now.AddYears(5))
+                    );
                 }
+                    
+                xmlWriter.WriteEndElement();
+                xmlWriter.WriteEndElement();
                 
-                xmlWriter.WriteEndElement();
-                xmlWriter.WriteEndElement();
-            }
-            else
-            {
-                xmlWriter.WriteStartElement("adresaReprezentantLegal");
-
-                xmlWriter.WriteElementString("apartament", "");
-
-
-                xmlWriter.WriteElementString("bloc", "");
-                xmlWriter.WriteElementString("etaj", "");
-                xmlWriter.WriteElementString("numar", "");
-                xmlWriter.WriteElementString("scara", "");
-                //string[] strSirutePer;
-                //strSirutePer = bazadedate.getSIRUTE(drTEMPper["localitate"].ToString(), drTEMPper["judet"].ToString());
-
-
-                xmlWriter.WriteElementString("sirutaJudet", adrrolSirute.SirutaJudet);
-                xmlWriter.WriteElementString("sirutaLocalitate", adrrolSirute.Siruta);
-                xmlWriter.WriteElementString("sirutaUAT", adrrolSirute.SirutaSuperioara);
-                xmlWriter.WriteElementString("strada", "0");
-                
-
-                xmlWriter.WriteEndElement();
-
-                xmlWriter.WriteStartElement("persoanaJuridica");
-                xmlWriter.WriteStartElement("cui");
-                xmlWriter.WriteAttributeString("value", drAdrrol["cnp"].ToString());
-                xmlWriter.WriteEndElement();
-                xmlWriter.WriteElementString("denumire", drAdrrol["nume"].ToString());
-                Console.WriteLine(
-                    drAdrrol["nume"].ToString().Substring(drAdrrol["nume"].ToString().Length-3,3)
-                );
-                xmlWriter.WriteElementString("formaOrganizareRC", formadeorganizarestring);
-
-                xmlWriter.WriteEndElement();
-
-
+            }else{
                 xmlWriter.WriteStartElement("reprezentantLegal");
+                   
                 xmlWriter.WriteElementString("nume", "-");
+                   
+                   
                 xmlWriter.WriteElementString("prenume", "-");
+                    
                 xmlWriter.WriteElementString("initialaTata", "-");
-
+                    
+                    
                 xmlWriter.WriteStartElement("cnp");
-                xmlWriter.WriteAttributeString("value", AjutExport.genereazaCNP(AjutExport.GetNumeJudetRol(strIdRol), DateTime.Now));
+                   
+                xmlWriter.WriteAttributeString("value", 
+                            AjutExport.genereazaCNP
+                            (AjutExport.GetNumeJudetRol(strIdRol),DateTime.Now.AddYears(5))
+                );
+                    
+                    
                 xmlWriter.WriteEndElement();
                 xmlWriter.WriteEndElement();
             }
+            //--
+                
+                
+            
             
 
             xmlWriter.WriteEndElement();

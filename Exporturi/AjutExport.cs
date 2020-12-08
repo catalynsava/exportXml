@@ -695,7 +695,76 @@ namespace exportXml.Exporturi
             if(formaorganizare.Contains(den4)){
                 return den4;
             }
-            return "SC";
+            //--
+            if(denumireParam.Length>3 && 
+                denumireParam.Substring(denumireParam.Length-3, 3)==" SA"){
+                    return "SA";
+            }
+            if(denumireParam.Length>3 && 
+                denumireParam.Substring(denumireParam.Length-3, 3)==" II"){
+                    return "II";
+            }
+            if(denumireParam.Length>3 && 
+                denumireParam.Substring(denumireParam.Length-3, 3)==" IF"){
+                    return "IF";
+            }
+
+            if(denumireParam.Length>4 && 
+                denumireParam.Substring(denumireParam.Length-4, 4)==" SNC"){
+                    return "SNC";
+            }
+
+            if(denumireParam.Length>4 && 
+                denumireParam.Substring(denumireParam.Length-4, 4)==" SCS"){
+                    return "SCS";
+            }
+
+            if(denumireParam.Length>4 && 
+                denumireParam.Substring(denumireParam.Length-4, 4)==" SCA"){
+                    return "SCA";
+            }
+
+            if(denumireParam.Length>4 && 
+                denumireParam.Substring(denumireParam.Length-4, 4)==" SRL"){
+                    return "SRL";
+            }
+
+            if(denumireParam.Length>4 && 
+                denumireParam.Substring(denumireParam.Length-4, 4)==" PFA"){
+                    return "PFA";
+            }
+
+            if (denumireParam.Length>3 && 
+                denumireParam.Substring(0, 3) == "PFA")
+            {
+                return "PFA";
+            }
+
+            if (denumireParam.Length>6 && 
+                denumireParam.Substring(1, 6) == "SCOALA")
+            {
+                return "SNC";
+            }
+
+            if (denumireParam.Length>9 && 
+                denumireParam.Substring(0, 9) == "GRADINITA")
+            {
+                return "SNC";
+            }
+            if (denumireParam.Length>7 && 
+                denumireParam.Substring(0, 7) == "PAROHIA")
+            {
+                return "SNC";
+            }
+
+            if (denumireParam.Length>9 && 
+                denumireParam.Substring(0, 9) == "DISPENSAR")
+            {
+                return "SNC";
+            }
+
+            return "SRL";
         }
+        
     }
 }

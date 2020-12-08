@@ -187,6 +187,7 @@ namespace exportXml
                 }
              }
             BazaDeDate.deconectare();
+            
         }
     }
 }
