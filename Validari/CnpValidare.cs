@@ -1,6 +1,7 @@
 
 using System;
 using System.Data.OleDb;
+using System.IO;
 
 namespace exportXml.Validari
 {
@@ -8,106 +9,106 @@ namespace exportXml.Validari
     {
         public static void adrrolcnpuri(){
             RaspunsValidare rsp;
-            OleDbCommand command=new OleDbCommand("SELECT cnp FROM adrRol WHERE tip=1 or tip=2;",BazaDeDate.conexiune);
+            OleDbCommand command=new OleDbCommand("SELECT idrol, cnp FROM adrRol WHERE tip=1 or tip=2;",BazaDeDate.conexiune);
             OleDbDataReader dr=command.ExecuteReader();
             while(dr.Read()){
                 rsp=Validari.CnpValidare.verificaCNP( dr["cnp"].ToString());
                 
                  if(rsp.corect==false){
-                    Console.WriteLine(rsp.detalii);
-                    Ajutatoare.scrielinie("ADRROLcnpurieronate.log",rsp.detalii);
+                    Console.WriteLine(dr["idrol"].ToString() + " " + rsp.detalii);
+                    Ajutatoare.scrielinie("ADRROLcnpurieronate.log",dr["idrol"].ToString() + " " + rsp.detalii);
                 }
             }
         }
         public static void cap1cnpuri(){
             RaspunsValidare rsp;
-            OleDbCommand command=new OleDbCommand("SELECT cnp FROM cap1;",BazaDeDate.conexiune);
+            OleDbCommand command=new OleDbCommand("SELECT idrol, cnp FROM cap1;",BazaDeDate.conexiune);
             OleDbDataReader dr=command.ExecuteReader();
             while(dr.Read()){
                 rsp=Validari.CnpValidare.verificaCNP( dr["cnp"].ToString());
 
                 if(rsp.corect==false){
-                    Console.WriteLine(rsp.detalii);
-                    Ajutatoare.scrielinie("CAP1cnpurieronate.log",rsp.detalii);
+                    Console.WriteLine(dr["idrol"].ToString() + " " + rsp.detalii);
+                    Ajutatoare.scrielinie("CAP1cnpurieronate.log",dr["idrol"].ToString() + " " + rsp.detalii);
                 }
             }
         }
         public static void cap2bcnpuri(){
             RaspunsValidare rsp;
-            OleDbCommand command=new OleDbCommand("SELECT cnptit FROM cap2b;",BazaDeDate.conexiune);
+            OleDbCommand command=new OleDbCommand("SELECT idrol, cnptit FROM cap2b;",BazaDeDate.conexiune);
             OleDbDataReader dr=command.ExecuteReader();
             while(dr.Read()){
                 rsp=Validari.CnpValidare.verificaCNP( dr["cnptit"].ToString());
                 
                 if(rsp.corect==false){
-                    Console.WriteLine(rsp.detalii);
-                    Ajutatoare.scrielinie("CAP2Bcnpurieronate.log",rsp.detalii);
+                    Console.WriteLine(dr["idrol"].ToString() + " " + rsp.detalii);
+                    Ajutatoare.scrielinie("CAP2Bcnpurieronate.log",dr["idrol"].ToString() + " " + rsp.detalii);
                 }
             }
         }
         public static void cap13cnpuri(){
             
             RaspunsValidare rsp;
-            OleDbCommand command=new OleDbCommand("SELECT cnpDef FROM cap13;",BazaDeDate.conexiune);
+            OleDbCommand command=new OleDbCommand("SELECT idrol, cnpDef FROM cap13;",BazaDeDate.conexiune);
             OleDbDataReader dr=command.ExecuteReader();
             while(dr.Read()){
                 rsp=Validari.CnpValidare.verificaCNP(dr["cnpdef"].ToString());
                 
                 if(rsp.corect==false){
-                    Console.WriteLine(rsp.detalii);
-                    Ajutatoare.scrielinie("CAP13cnpurideferonate.log",rsp.detalii);
+                    Console.WriteLine(dr["idrol"].ToString() + " " + rsp.detalii);
+                    Ajutatoare.scrielinie("CAP13cnpurideferonate.log",dr["idrol"].ToString() + " " + rsp.detalii);
                 }
             }
         }
         public static void succesoricnpuri(){
             RaspunsValidare rsp;
-            OleDbCommand command=new OleDbCommand("SELECT cnpsucces FROM succesori;",BazaDeDate.conexiune);
+            OleDbCommand command=new OleDbCommand("SELECT idrol, cnpsucces FROM succesori;",BazaDeDate.conexiune);
             OleDbDataReader dr=command.ExecuteReader();
             while(dr.Read()){
                 rsp=Validari.CnpValidare.verificaCNP( dr["cnpsucces"].ToString());
 
                 if(rsp.corect==false){
-                    Console.WriteLine(rsp.detalii);
-                    Ajutatoare.scrielinie("SUCCESORIcnpurieronate.log",rsp.detalii);
+                    Console.WriteLine(dr["idrol"].ToString() + " " + rsp.detalii);
+                    Ajutatoare.scrielinie("SUCCESORIcnpurieronate.log",dr["idrol"].ToString() + " " + rsp.detalii);
                 }
             }
         }
         public static void cumparatoricnpuri(){
             RaspunsValidare rsp;
-            OleDbCommand command=new OleDbCommand("SELECT cnp_Cump FROM cap14;",BazaDeDate.conexiune);
+            OleDbCommand command=new OleDbCommand("SELECT idrol, cnp_Cump FROM cap14;",BazaDeDate.conexiune);
             OleDbDataReader dr=command.ExecuteReader();
             while(dr.Read()){
                 rsp=Validari.CnpValidare.verificaCNP( dr["cnp_Cump"].ToString());
 
                 if(rsp.corect==false){
-                    Console.WriteLine(rsp.detalii);
-                    Ajutatoare.scrielinie("CUMPARATORIcnpurieronate.log",rsp.detalii);
+                    Console.WriteLine(dr["idrol"].ToString() + " " + rsp.detalii);
+                    Ajutatoare.scrielinie("CUMPARATORIcnpurieronate.log",dr["idrol"].ToString() + " " + rsp.detalii);
                 }
             }
         }
         public static void cap15acnpuri(){
             RaspunsValidare rsp;
-            OleDbCommand command=new OleDbCommand("SELECT cnp FROM cap15;",BazaDeDate.conexiune);
+            OleDbCommand command=new OleDbCommand("SELECT idrol, cnp FROM cap15;",BazaDeDate.conexiune);
             OleDbDataReader dr=command.ExecuteReader();
             while(dr.Read()){
                 rsp=Validari.CnpValidare.verificaCNP( dr["cnp"].ToString());
 
                 if(rsp.corect==false){
-                    Console.WriteLine(rsp.detalii);
-                    Ajutatoare.scrielinie("CAP15Acnpurieronate.log",rsp.detalii);
+                    Console.WriteLine(dr["idrol"].ToString() + " " + rsp.detalii);
+                    Ajutatoare.scrielinie("CAP15Acnpurieronate.log",dr["idrol"].ToString() + " " + rsp.detalii);
                 }
             }
         }
         public static void cap15bcnpuri(){
             RaspunsValidare rsp;
-            OleDbCommand command=new OleDbCommand("SELECT cnp FROM cap15b;",BazaDeDate.conexiune);
+            OleDbCommand command=new OleDbCommand("SELECT idrol, cnp FROM cap15b;",BazaDeDate.conexiune);
             OleDbDataReader dr=command.ExecuteReader();
             while(dr.Read()){
                 rsp=Validari.CnpValidare.verificaCNP( dr["cnp"].ToString());
 
                 if(rsp.corect==false){
-                    Console.WriteLine(rsp.detalii);
-                    Ajutatoare.scrielinie("CAP15Bcnpurieronate.log",rsp.detalii);
+                    Console.WriteLine(dr["idrol"].ToString() + " " + rsp.detalii);
+                    Ajutatoare.scrielinie("CAP15Bcnpurieronate.log",dr["idrol"].ToString() + " " + rsp.detalii);
                 }
             }
         }

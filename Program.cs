@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.OleDb;
 using exportXml.Exporturi;
+using exportXml.Validari;
 
 namespace exportXml
 {
@@ -185,6 +186,10 @@ namespace exportXml
                     Util.comun("CAP1");
                     Util.cap1();
                 }
+             }
+
+             if(args[1]=="-executa"){
+                 Ajutatoare.executaScriptSql(args[2]);
              }
             BazaDeDate.deconectare();
             

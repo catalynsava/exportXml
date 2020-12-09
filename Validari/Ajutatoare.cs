@@ -1,4 +1,5 @@
 using System;
+using System.Data.OleDb;
 using System.IO;
 
 namespace exportXml.Validari
@@ -27,6 +28,43 @@ namespace exportXml.Validari
             {
                 file.WriteLine(linie);
             }
+        }
+        public static int executaScriptSql(string sqlFilePath){
+            string line;
+            int raspuns=0;
+            
+
+            StreamReader file = new System.IO.StreamReader(sqlFilePath);  
+            while((line = file.ReadLine()) != null)  
+            {
+                if(line.Substring(0,2)!="--"){
+                    try
+                    {
+                        using (OleDbCommand command=new OleDbCommand())
+                        {
+                            Console.WriteLine(@line);
+                            command.CommandText=@line;
+                            command.Connection=BazaDeDate.conexiune;
+                            
+                            raspuns=command.ExecuteNonQuery();
+                            Console.WriteLine(raspuns.ToString() + " rows affected;");
+                            Console.WriteLine("--");
+                            command.Dispose();
+                        }
+                    }
+                    catch (InvalidOperationException Ex)
+                    {
+                        Console.WriteLine(Ex.Message);
+                    }
+                    
+                   
+                }else{
+                     Console.WriteLine(line);
+                }
+                 
+            }  
+            file.Close();
+            return raspuns;
         }
     }
 }
