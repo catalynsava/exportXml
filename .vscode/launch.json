@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             "program": "${workspaceFolder}/bin/Debug/net5.0/exportXml.dll",
-            "args": ["2020.mdb", "-executa", "repar.sql"],
+            "args": ["2020.mdb", "-export", "CAP8", "2"],
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "stopAtEntry": false

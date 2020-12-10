@@ -10,6 +10,13 @@ namespace exportXml.Exporturi
     {
         public static bool make_CAP2bxml(string strIdRol, string numeTitular, string initialaTitular, string prenumeTitular, string cnpTitular)
         {
+            string cnpTitularUlt="";
+            RaspunsValidare raspuns=CnpValidare.verificaCNP(cnpTitular);
+            if(raspuns.corect==true){
+                cnpTitularUlt=cnpTitular;
+            }else{
+                cnpTitularUlt=AjutExport.genereazaCNP(AjutExport.GetNumeJudetRol(strIdRol), DateTime.Now.AddYears(5));  
+            }    
           
             try{
                 //###############################################################
@@ -149,35 +156,34 @@ namespace exportXml.Exporturi
                         xmlWriter.WriteStartElement("proprietar");         //deschid7
 
                         //nume
-                        
+                        if(numeTitular==""){
+                            xmlWriter.WriteElementString("nume", "-");
+                        }else{
                             xmlWriter.WriteElementString("nume", numeTitular);
-                        
-                            xmlWriter.WriteElementString("prenume", prenumeTitular);
-                        
+                        }
 
-                       
-                            if (initialaTitular == "")
-                            {
-                                xmlWriter.WriteElementString("initialaTata", "-");
-                            }
-                            else
-                            {
+                        if(prenumeTitular==""){
+                            xmlWriter.WriteElementString("prenume", "-");
+                        }else{
+                            xmlWriter.WriteElementString("prenume", prenumeTitular);
+                        }
+                            
+                        if (initialaTitular == "")
+                        {
+                             xmlWriter.WriteElementString("initialaTata", "-");
+                        }
+                        else
+                        {
                                 xmlWriter.WriteElementString("initialaTata", initialaTitular);
-                            }
+                        }
                         
                             
 
                         xmlWriter.WriteStartElement("cnp");                 //deschid8
                         
-                            RaspunsValidare raspuns=CnpValidare.verificaCNP(cnpTitular);
-                            if (raspuns.corect==true)
-                            {
-                                xmlWriter.WriteAttributeString("value", cnpTitular);
-                            }
-                            else
-                            {
-                                xmlWriter.WriteAttributeString("value", AjutExport.genereazaCNP(AjutExport.GetNumeJudetRol(strIdRol), DateTime.Now.AddYears(5)));
-                            }
+                        
+                        xmlWriter.WriteAttributeString("value", cnpTitularUlt);
+                            
                        
 
                         xmlWriter.WriteEndElement();                          //inchid8
@@ -324,8 +330,17 @@ namespace exportXml.Exporturi
                         xmlWriter.WriteEndElement();                          //inchid7
 
                         xmlWriter.WriteStartElement("proprietar");         //deschid7
-                        xmlWriter.WriteElementString("nume", numeTitular);
-                        xmlWriter.WriteElementString("prenume", prenumeTitular);
+                        
+                        if(numeTitular==""){
+                            xmlWriter.WriteElementString("nume", "-");
+                        }else{
+                            xmlWriter.WriteElementString("nume", numeTitular);
+                        }
+                        if(prenumeTitular==""){
+                            xmlWriter.WriteElementString("prenume", "-");
+                        }else{
+                            xmlWriter.WriteElementString("prenume", prenumeTitular);
+                        }
                         if (initialaTitular == "")
                         {
                             xmlWriter.WriteElementString("initialaTata", "-");
@@ -336,7 +351,11 @@ namespace exportXml.Exporturi
                         }
 
                         xmlWriter.WriteStartElement("cnp");                 //deschid8
-                        xmlWriter.WriteAttributeString("value", cnpTitular);
+    
+                        xmlWriter.WriteAttributeString("value", cnpTitularUlt);
+                        
+
+
                         xmlWriter.WriteEndElement();                          //inchid8
                         xmlWriter.WriteEndElement();                          //inchid7
 

@@ -10,11 +10,12 @@ namespace exportXml.Exporturi
     {
         public static bool make_CAP7xml(string strIdRol, int Trimestruparam)
         {
+            string FolderTrimestru="XML\\CAP7_" + Trimestruparam + "\\";
             try
             {
                 string strGosp = strIdRol.Substring(0, strIdRol.Length - 3);
 
-                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory.ToString() + "XML\\CAP7\\" + AjutExport.numefisier(strIdRol) + "xml") == true)
+                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory.ToString() +FolderTrimestru + AjutExport.numefisier(strIdRol) + "xml") == true)
                 {
                     Ajutatoare.scrielinie("eroriXML.log", " există deja: " + AjutExport.numefisier(strIdRol) + "xml");
                     return false;
@@ -51,7 +52,7 @@ namespace exportXml.Exporturi
                 //---------------------------------//
 
                 //scriu xml
-                XmlWriter xmlWriter = XmlWriter.Create(AppDomain.CurrentDomain.BaseDirectory.ToString() + "XML\\CAP7\\" + AjutExport.numefisier(strIdRol) + "xml", settings);
+                XmlWriter xmlWriter = XmlWriter.Create(AppDomain.CurrentDomain.BaseDirectory.ToString() +FolderTrimestru + AjutExport.numefisier(strIdRol) + "xml", settings);
                 //header
                 xmlWriter.WriteStartDocument();
                 xmlWriter.WriteStartElement("DOCUMENT_RAN");        //deschid1

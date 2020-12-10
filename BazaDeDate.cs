@@ -11,7 +11,7 @@ namespace exportXml
         public static bool conexiuneDeschisa { get; set; }
         public static bool conectare(string numebazadedate="2020.mdb"){
             connectionstring="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + 
-                    AppDomain.CurrentDomain.BaseDirectory + "\\" + numebazadedate;
+            AppDomain.CurrentDomain.BaseDirectory + "\\" + numebazadedate;
             conexiune=new OleDbConnection(connectionstring);
             conexiune.Open();
             conexiuneDeschisa=true;

@@ -168,12 +168,12 @@ namespace exportXml.Exporturi
             }
         }
         public static void cap3(){
-            string strSQL="DELETE FROM CAP3 WHERE inloc=0 and altloc=0";
+            /*string strSQL="DELETE FROM CAP3 WHERE inloc=0 and altloc=0";
             OleDbCommand cmdTEMP = new System.Data.OleDb.OleDbCommand(strSQL, BazaDeDate.conexiune);
-            cmdTEMP.ExecuteNonQuery();
+            cmdTEMP.ExecuteNonQuery();*/
 
-            strSQL = "SELECT idRol, nume, prenume, cnp FROM adrrol WHERE idRol IN (SELECT idRol FROM CAP3 WHERE CAP3.NRCRT<=18) AND sistat<>\"DA\";";
-            cmdTEMP = new System.Data.OleDb.OleDbCommand(strSQL, BazaDeDate.conexiune);
+            string strSQL = "SELECT idRol, nume, prenume, cnp FROM adrrol WHERE idRol IN (SELECT idRol FROM CAP3 WHERE CAP3.NRCRT<=18) AND sistat<>\"DA\";";
+            OleDbCommand cmdTEMP = new System.Data.OleDb.OleDbCommand(strSQL, BazaDeDate.conexiune);
             OleDbDataReader drTEMP = cmdTEMP.ExecuteReader();
 
             while (drTEMP.Read()){
@@ -602,6 +602,15 @@ namespace exportXml.Exporturi
             }
         }
         public static void cap7(int trimestru){
+            string FolderTrimestru="XML\\CAP7_";
+            string FolderTrimestruWrong="XML\\CAP7_";
+            if(trimestru==1){
+                FolderTrimestru+="1\\";
+                FolderTrimestruWrong+="1_Wrong\\";
+            }else if(trimestru==2){
+                FolderTrimestru+="2\\";
+                FolderTrimestruWrong+="2_Wrong\\";
+            }
             string strSQL="DELETE FROM CAP7 WHERE buc=0 and buc2=0;";
             OleDbCommand cmdTEMP = new System.Data.OleDb.OleDbCommand(strSQL, BazaDeDate.conexiune);
             cmdTEMP.ExecuteNonQuery();
@@ -625,11 +634,11 @@ namespace exportXml.Exporturi
                     CAP7.make_CAP7xml(drTEMP["idRol"].ToString(), trimestru);
                     
                     
-                    string strXMLvalid = AjutExport.XMLok(AppDomain.CurrentDomain.BaseDirectory.ToString() + "XML\\CAP7\\" + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml");
+                    string strXMLvalid = AjutExport.XMLok(AppDomain.CurrentDomain.BaseDirectory.ToString() + FolderTrimestru + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml");
                     if (strXMLvalid != "ok"){
                         AjutExport.moveWrongXML(
-                            AppDomain.CurrentDomain.BaseDirectory.ToString() + "XML\\CAP7\\" + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml",
-                            AppDomain.CurrentDomain.BaseDirectory.ToString() + "XML\\CAP7_Wrong\\" + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml"
+                            AppDomain.CurrentDomain.BaseDirectory.ToString() + FolderTrimestru + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml",
+                            AppDomain.CurrentDomain.BaseDirectory.ToString() + FolderTrimestruWrong + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml"
                         );
                         Console.WriteLine(drTEMP["idRol"] + " " + drTEMP["nume"] + " " + drTEMP["prenume"] + " " + strXMLvalid);
                     }else{
@@ -639,6 +648,15 @@ namespace exportXml.Exporturi
             }
         }
         public static void cap8(int trimestru){
+            string FolderTrimestru="XML\\CAP8_";
+            string FolderTrimestruWrong="XML\\CAP8_";
+            if(trimestru==1){
+                FolderTrimestru+="1\\";
+                FolderTrimestruWrong+="1_Wrong\\";
+            }else if(trimestru==2){
+                FolderTrimestru+="2\\";
+                FolderTrimestruWrong+="2_Wrong\\";
+            }
             string strSQL="DELETE FROM CAP8 WHERE sem1=0 and sem2=0;";
             OleDbCommand cmdTEMP = new System.Data.OleDb.OleDbCommand(strSQL, BazaDeDate.conexiune);
             cmdTEMP.ExecuteNonQuery();
@@ -662,11 +680,11 @@ namespace exportXml.Exporturi
                     CAP8.make_CAP8xml(drTEMP["idRol"].ToString(), trimestru);
                     
                     
-                    string strXMLvalid = AjutExport.XMLok(AppDomain.CurrentDomain.BaseDirectory.ToString() + "XML\\CAP8\\" + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml");
+                    string strXMLvalid = AjutExport.XMLok(AppDomain.CurrentDomain.BaseDirectory.ToString() +FolderTrimestru + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml");
                     if (strXMLvalid != "ok"){
                         AjutExport.moveWrongXML(
-                            AppDomain.CurrentDomain.BaseDirectory.ToString() + "XML\\CAP8\\" + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml",
-                            AppDomain.CurrentDomain.BaseDirectory.ToString() + "XML\\CAP8_Wrong\\" + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml"
+                            AppDomain.CurrentDomain.BaseDirectory.ToString() + FolderTrimestru + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml",
+                            AppDomain.CurrentDomain.BaseDirectory.ToString() + FolderTrimestruWrong + AjutExport.numefisier(drTEMP["idRol"].ToString()) + "xml"
                         );
                         Console.WriteLine(drTEMP["idRol"] + " " + drTEMP["nume"] + " " + drTEMP["prenume"] + " " + strXMLvalid);
                     }else{

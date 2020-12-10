@@ -128,22 +128,27 @@ namespace exportXml
                     Export.cap6();
                 }
                 if(args[2]=="CAP7"){
-                    Export.comun("CAP7");
                     if(args[3]=="1"){
+                        Export.comun("CAP7_1");
                         Export.cap7(1);
                     }else if(args[3]=="2"){
+                        Export.comun("CAP7_2");
                         Export.cap7(2);
                     }else{
+                        Export.comun("CAP7_1");
                         Export.cap7(1);
                     }
                 }
                 if(args[2]=="CAP8"){
-                    Export.comun("CAP8");
+                    
                     if(args[3]=="1"){
+                        Export.comun("CAP8_1");
                         Export.cap8(1);
                     }else if(args[3]=="2"){
+                        Export.comun("CAP8_2");
                         Export.cap8(2);
                     }else{
+                        Export.comun("CAP8_1");
                         Export.cap8(1);
                     }
                 }

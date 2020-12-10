@@ -1,0 +1,4 @@
+SELECT nomcap3.NrCrt, nomcap3.suma, CAP3.inloc, CAP3.altloc, CAP3.tot FROM nomcap3 LEFT JOIN (SELECT * FROM CAP3 WHERE CAP3.IDROL= "1.1.18.9.15.") AS TABLE2 ON nomcap3.NrCrt = TABLE2.NrCrt;
+	|
+	|
+   \_/
